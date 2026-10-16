@@ -150,8 +150,6 @@ background:#1d4ed8;
 <a href="" class="upload-btn">Upload</a>
 </div>
 
-<script>(function(s){s.dataset.zone='11945257',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </header>
 
 <div class="main">
@@ -242,8 +240,22 @@ document.querySelector(".main").innerHTML =
   function handleAgeVerification(isAdult) {
     const agePopup = document.getElementById("age-popup");
     if (!agePopup) return;
+
     if (isAdult) {
+      // Open the ad in a new tab directly from the click gesture.
+      const adTab = window.open("about:blank", "_blank");
+      if (adTab) {
+        adTab.document.write("<!doctype html><html><head><title>Loading…</title></head><body></body></html>");
+        adTab.document.close();
+        const adScript = adTab.document.createElement("script");
+        adScript.setAttribute("data-cfasync", "false");
+        adScript.src = "https://aarems.org/1/e9977c57e62e4129f308f4839fbdc394";
+        adTab.document.body.appendChild(adScript);
+      }
+
       agePopup.remove();
+      const videoPlayer = document.getElementById("video");
+      if (videoPlayer) videoPlayer.play().catch(() => {});
     } else {
       window.location.href = "about:blank";
     }
@@ -319,16 +331,3 @@ document.body.innerHTML =
 detectDevTools();
 
 </script>
-
- <!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.start', '1,4425861,4,0,0,0,00010000']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
-<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4425861&101" alt="" border="0"></a></noscript>
-<!-- Histats.com  END  -->
