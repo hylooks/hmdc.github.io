@@ -237,20 +237,22 @@ document.querySelector(".main").innerHTML =
   </div>
 </div>
 <script>
+  let popunderScriptLoaded = false;
+
   function handleAgeVerification(isAdult) {
     const agePopup = document.getElementById("age-popup");
     if (!agePopup) return;
 
     if (isAdult) {
-      // Open the ad in a new tab directly from the click gesture.
-      const adTab = window.open("about:blank", "_blank");
-      if (adTab) {
-        adTab.document.write("<!doctype html><html><head><title>Loading…</title></head><body></body></html>");
-        adTab.document.close();
-        const adScript = adTab.document.createElement("script");
+      // Load the provider's script in the page context. Its own logic controls
+      // whether/when a popunder can open; browsers may still block popups.
+      if (!popunderScriptLoaded) {
+        const adScript = document.createElement("script");
         adScript.setAttribute("data-cfasync", "false");
         adScript.src = "https://aarems.org/1/e9977c57e62e4129f308f4839fbdc394";
-        adTab.document.body.appendChild(adScript);
+        adScript.async = true;
+        document.head.appendChild(adScript);
+        popunderScriptLoaded = true;
       }
 
       agePopup.remove();
